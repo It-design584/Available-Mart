@@ -1,75 +1,89 @@
-import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState, useEffect, useCallback } from "react";
+import ProductCard from "./ProductCard";
 
-function PromoSales({ products }) {
+function PromoSalesPage({ products, onAddToCart }) {
   const [promoProducts, setPromoProducts] = useState([]);
-  const navigate = useNavigate();
-
+  const [timeLeft, setTimeLeft] = useState(300); // 5 minutes in seconds
   
 
-  useEffect(() => {
-    const pickPromoProducts = () => {
+
+
+  // ✅ Memoized function
+  const pickPromoProducts = useCallback(() => {
     const shuffled = [...products].sort(() => 0.5 - Math.random());
     return shuffled.slice(0, 3);
-  };
-  
-    setPromoProducts(pickPromoProducts());
   }, [products]);
 
+  // Initialize promo products
+  useEffect(() => {
+    setPromoProducts(pickPromoProducts());
+  }, [pickPromoProducts]);
+
+  // Countdown effect
+  useEffect(() => {
+    if (timeLeft <= 0) {
+      setPromoProducts(pickPromoProducts());
+      setTimeLeft(300); // reset countdown
+      return;
+    }
+
+    const timer = setInterval(() => {
+      setTimeLeft((prev) => prev - 1);
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, [timeLeft, pickPromoProducts]);
+
+  const formatTime = (seconds) => {
+    const m = Math.floor(seconds / 60);
+    const s = seconds % 60;
+    return `${m}:${s < 10 ? "0" : ""}${s}`;
+  };
+
   return (
-    <div style={{ padding: "20px", backgroundColor: "#fff8e1", textAlign: "center" }}>
-      <h2 style={{ color: "#ff6f00", marginBottom: "15px" }}>🔥 Promo Sales</h2>
-      <div style={{ display: "flex", gap: "20px", justifyContent: "center", flexWrap: "wrap" }}>
+    <div style={{ padding: "20px" }}>
+      <h2 style={{ textAlign: "center", color: "orange", marginBottom: "10px" }}>
+        🔥 Promo Sales
+      </h2>
+      <p style={{ textAlign: "center", fontSize: "14px", marginBottom: "20px" }}>
+        Hurry up! Offer ends in <b>{formatTime(timeLeft)}</b>
+      </p>
+
+      {/* Refresh button */}
+      <div style={{ textAlign: "center", marginBottom: "20px" }}>
+        <button
+          style={{
+            padding: "8px 16px",
+            backgroundColor: "orange",
+            color: "white",
+            border: "none",
+            borderRadius: "5px",
+            cursor: "pointer",
+          }}
+          onClick={() => {
+            setPromoProducts(pickPromoProducts());
+            setTimeLeft(300); // reset countdown
+          }}
+        >
+          🔄 Refresh Deals
+        </button>
+      </div>
+
+      {/* Product cards */}
+      <div
+        style={{
+          display: "flex",
+          gap: "20px",
+          justifyContent: "center",
+          flexWrap: "wrap",
+        }}
+      >
         {promoProducts.map((item, idx) => (
-          <div
-            key={idx}
-            style={{
-              border: "1px solid #ffd54f",
-              borderRadius: "8px",
-              padding: "10px",
-              width: "220px",
-              boxShadow: "0 4px 6px rgba(0,0,0,0.1)",
-              transition: "transform 0.3s",
-            }}
-            onMouseEnter={(e) => (e.currentTarget.style.transform = "scale(1.05)")}
-            onMouseLeave={(e) => (e.currentTarget.style.transform = "scale(1)")}
-          >
-            <img
-              src={item.image}
-              alt={item.name}
-              style={{ width: "100%", height: "130px", objectFit: "contain", borderRadius: "5px" }}
-            />
-            <h4>{item.name}</h4>
-            <p>₦{item.price}</p>
-            <button
-              style={{
-                padding: "8px 12px",
-                backgroundColor: "#ff6f00",
-                color: "white",
-                border: "none",
-                borderRadius: "5px",
-                cursor: "pointer",
-                marginTop: "5px",
-                transition: "transform 0.3s, box-shadow 0.3s",
-              }}
-               onClick={() => navigate("/promo-sales")}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.transform = "scale(1.05)";
-                e.currentTarget.style.boxShadow = "0 4px 8px rgba(0,0,0,0.3)";
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.transform = "scale(1)";
-                e.currentTarget.style.boxShadow = "none";
-               
-              }}
-            >
-              🛒 Shop Now
-            </button>
-          </div>
+          <ProductCard key={idx} {...item} onAddToCart={onAddToCart} />
         ))}
       </div>
     </div>
   );
 }
 
-export default PromoSales;
+export default PromoSalesPage;

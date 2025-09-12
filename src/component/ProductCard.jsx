@@ -52,6 +52,23 @@ function ProductCard({ name, price, image, benefits, onAddToCart }) {
           />
           <h4 style={{ margin: "10px 0" }}>{name}</h4>
           <p style={{ color: "green", fontWeight: "bold" }}>₦{price}</p>
+           <button
+            style={{
+              marginTop: "10px",
+              padding: "10px 15px",
+              backgroundColor: "orange",
+              color: "white",
+              border: "none",
+              borderRadius: "5px",
+              cursor: "pointer",
+            }}
+            onClick={(e) => {
+             e.stopPropagation();
+    setFlipped(true);
+            }}
+          >
+            See details
+          </button>
         </div>
 
         {/* Back Side */}
