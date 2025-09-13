@@ -43,8 +43,8 @@ function App() {
     });
 
     // ✅ Show success message
-    setMessage(`${product.name} added to cart! Check your cart for items selected.`);
-    setTimeout(() => setMessage(""), 3000); // Auto-hide after 3s
+    // setMessage(`${product.name} added to cart! Check your cart for items selected.`);
+    // setTimeout(() => setMessage(""), 3000); // Auto-hide after 3s
   };
 
   const removeItem = (name) => {
@@ -53,6 +53,19 @@ function App() {
 
   const clearCart = () => {
     setCartItems([]);
+  };
+
+  // ✅ Update quantity (➕➖ buttons in Cart.jsx)
+  const updateQuantity = (name, quantity) => {
+    if (quantity <= 0) {
+      removeItem(name);
+    } else {
+      setCartItems((prev) =>
+        prev.map((item) =>
+          item.name === name ? { ...item, quantity } : item
+        )
+      );
+    }
   };
 
   // Products list with categories
@@ -68,7 +81,7 @@ function App() {
     { name: "Indomie Carton (40 packs)", price: "5,200", image: "indomie.jpeg", category: "Packaged Foods", benefits: "Quick to prepare, tasty, affordable, and convenient for busy days." },
     { name: "Peak Milk Tin", price: "750", image: "peak.jpeg", category: "Dairy", benefits: "Rich in calcium and protein, strengthens bones, and adds nutrition to meals and drinks." },
     { name: "Milo Refill (500g)", price: "3,200", image: "milo.jpeg", category: "Beverages", benefits: "Packed with vitamins and minerals, boosts energy, and perfect for breakfast." },
-    { name: "Sugar (1kg)", price: "1,200", image: "sugar.jpeg", category: "Essentials", benefits: "Provides quick energy, enhances the taste of food and drinks, and easy to use." },
+    { name: "Sugar (1kg)", price: "1,200", image: "sugar.jpeg", category: "Essentials",benefits: "Provides quick energy, enhances the taste of food and drinks, and easy to use." },
     { name: "Salt (1kg)", price: "500", image: "salt.jpeg", category: "Essentials", benefits: "Essential mineral for health, adds flavor to meals, and preserves food." },
 
     { name: "Detergent (Omo 1kg)", price: "2,000", image: "detergent.jpeg", category: "Household", benefits: "Removes tough stains, keeps clothes fresh and bright, and gentle on fabrics." },
@@ -151,7 +164,8 @@ function App() {
   return (
     <div>
     
-      <Navbar />
+      <Navbar cartCount={cartItems.reduce((sum, item) => sum + item.quantity, 0)} />
+
 
       {/* ✅ Success message */}
       {message && (
@@ -244,19 +258,19 @@ function App() {
               </div>
 
               <div
-                style={{
-                  display: "flex",
-                  gap: "20px",
-                  flexWrap: "wrap",
-                  justifyContent: "center",
-                }}
-              >
-                {filteredProducts.map((product, idx) => (
-                  <ProductCard
-                    key={idx}
-                    {...product}
-                    onAddToCart={addToCart}
-                  />
+  style={{
+    display: "grid",
+    gridTemplateColumns: "repeat(auto-fit, minmax(160px, 1fr))",
+    gap: "15px",
+    justifyContent: "center",
+  }}
+>
+  {filteredProducts.map((product, idx) => (
+    <ProductCard
+      key={idx}
+      {...product}
+      onAddToCart={addToCart}
+    />
                 ))}
               </div>
             </div>
@@ -271,6 +285,7 @@ function App() {
               items={cartItems}
               onRemoveItem={removeItem}
               onClearCart={clearCart}
+              onUpdateQuantity={updateQuantity}  
             />
           }
         />

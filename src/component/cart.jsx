@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
 
-function Cart({ items, onRemoveItem, onClearCart }) {
+function Cart({ items, onRemoveItem, onClearCart, onUpdateQuantity }) {
   const [address, setAddress] = useState("");
-  const [useLocation, setUseLocation] = useState(false);
   const [successMessage, setSuccessMessage] = useState("");
 
   const formatPrice = (price) => Number(price.replace(/,/g, ""));
@@ -11,7 +10,12 @@ function Cart({ items, onRemoveItem, onClearCart }) {
     0
   );
 
-  // Geolocation button
+  // ✅ Persist cart in localStorage
+  useEffect(() => {
+    localStorage.setItem("cart", JSON.stringify(items));
+  }, [items]);
+
+  // ✅ Geolocation button
   const handleLocation = () => {
     if (!navigator.geolocation) {
       alert("Geolocation is not supported by your browser");
@@ -22,28 +26,32 @@ function Cart({ items, onRemoveItem, onClearCart }) {
         setAddress(
           `Lat: ${position.coords.latitude}, Lng: ${position.coords.longitude}`
         );
-        setUseLocation(false);
       },
       (error) => alert("Unable to get location: " + error.message)
     );
   };
 
-  // Manual submit button
+  // ✅ Manual submit button
   const handleManualSubmit = () => {
     if (!address) {
       alert("Please enter your delivery address.");
       return;
     }
-     setSuccessMessage(`Order placed successfully! Delivery info: ${address}`);
-     // Clear the textarea after submission
-      setAddress("");
-    // Auto-hide message after 3 seconds
+    setSuccessMessage(`Order placed successfully! Delivery info: ${address}`);
+    setAddress("");
     setTimeout(() => setSuccessMessage(""), 3000);
   };
 
   return (
     <div style={{ padding: "20px" }}>
       <h2>🛒 Shopping Cart</h2>
+
+      {/* ✅ Empty Cart Message */}
+      {items.length === 0 && (
+        <p style={{ textAlign: "center", marginTop: "20px" }}>
+          Fill the cart 🛒
+        </p>
+      )}
 
       {items.map((item, index) => (
         <div
@@ -63,10 +71,36 @@ function Cart({ items, onRemoveItem, onClearCart }) {
           />
           <div style={{ flex: 1 }}>
             <h4>{item.name}</h4>
-            <p>
-              ₦{item.price} × {item.quantity}
-            </p>
+            <p>₦{item.price}</p>
+
+            {/* ✅ Quantity Controls */}
+            <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+              <button
+                onClick={() =>
+                  onUpdateQuantity(item.name, Math.max(1, item.quantity - 1))
+                }
+                style={{
+                  padding: "4px 8px",
+                  border: "1px solid #ddd",
+                  cursor: "pointer",
+                }}
+              >
+                ➖
+              </button>
+              <span>{item.quantity}</span>
+              <button
+                onClick={() => onUpdateQuantity(item.name, item.quantity + 1)}
+                style={{
+                  padding: "4px 8px",
+                  border: "1px solid #ddd",
+                  cursor: "pointer",
+                }}
+              >
+                ➕
+              </button>
+            </div>
           </div>
+
           <button
             style={{
               padding: "5px 10px",
@@ -83,40 +117,46 @@ function Cart({ items, onRemoveItem, onClearCart }) {
         </div>
       ))}
 
-      <h3>Total: ₦{total}</h3>
+      {/* ✅ Summary */}
+      {items.length > 0 && (
+        <>
+          <h4>
+            Total Items: {items.reduce((sum, i) => sum + i.quantity, 0)}
+          </h4>
+          <h3>Total: ₦{total.toLocaleString()}</h3>
 
-      <button
-        className="clear-cart-btn"
-        onClick={onClearCart}
-        style={{
-          marginRight: "10px",
-          padding: "8px 12px",
-          backgroundColor: "orange",
-          color: "white",
-          border: "none",
-          borderRadius: "5px",
-          cursor: "pointer",
-        }}
-      >
-        🗑️ Clear Cart
-      </button>
+          <button
+            onClick={onClearCart}
+            style={{
+              marginRight: "10px",
+              padding: "8px 12px",
+              backgroundColor: "orange",
+              color: "white",
+              border: "none",
+              borderRadius: "5px",
+              cursor: "pointer",
+            }}
+          >
+            🗑️ Clear Cart
+          </button>
 
-      <button
-        className="pay-now-btn"
-        onClick={() => alert("Redirecting to payment...")}
-        style={{
-          padding: "8px 12px",
-          backgroundColor: "green",
-          color: "white",
-          border: "none",
-          borderRadius: "5px",
-          cursor: "pointer",
-        }}
-      >
-        💳 Pay Now
-      </button>
+          <button
+            onClick={() => alert("Redirecting to checkout...")}
+            style={{
+              padding: "8px 12px",
+              backgroundColor: "green",
+              color: "white",
+              border: "none",
+              borderRadius: "5px",
+              cursor: "pointer",
+            }}
+          >
+            💳 Checkout
+          </button>
+        </>
+      )}
 
-      {/* Delivery Section */}
+      {/* ✅ Delivery Section */}
       {items.length > 0 && (
         <div style={{ marginTop: "30px" }}>
           <h3>Delivery Information</h3>
@@ -127,7 +167,6 @@ function Cart({ items, onRemoveItem, onClearCart }) {
             style={{ width: "100%", padding: "10px", borderRadius: "5px" }}
           />
 
-          {/* Use current location */}
           <button
             onClick={handleLocation}
             style={{
@@ -144,7 +183,6 @@ function Cart({ items, onRemoveItem, onClearCart }) {
             Use My Current Location
           </button>
 
-          {/* Manual submit */}
           <button
             onClick={handleManualSubmit}
             style={{
@@ -161,8 +199,9 @@ function Cart({ items, onRemoveItem, onClearCart }) {
           </button>
         </div>
       )}
+      
 
-      {/* Success Message */}
+      {/* ✅ Success Message */}
       {successMessage && (
         <div
           style={{

@@ -3,17 +3,28 @@ import { useState } from "react";
 
 function ProductCard({ name, price, image, benefits, onAddToCart }) {
   const [flipped, setFlipped] = useState(false);
+   const [isAdded, setIsAdded] = useState(false);
+
+  const handleAdd = (e) => {
+    e.stopPropagation();
+    onAddToCart({ name, price, image });
+    setIsAdded(true);
+
+    // Reset after 2.5s
+    setTimeout(() => setIsAdded(false), 2500);
+  };
 
   return (
-    <div
-      style={{
-        perspective: "1000px",
-        width: "220px",
-        height: "320px",
-        cursor: "pointer",
-         position: "relative",   
-         zIndex: flipped ? 10 : 1, 
-      }}
+   <div
+  style={{
+    perspective: "1000px",
+    width: "100%",        
+    maxWidth: "220px",    
+    height: "300px",
+    cursor: "pointer",
+    position: "relative",
+    zIndex: flipped ? 10 : 1,
+  }}
       onMouseEnter={() => setFlipped(true)}
       onMouseLeave={() => setFlipped(false)}
     >
@@ -97,22 +108,23 @@ function ProductCard({ name, price, image, benefits, onAddToCart }) {
       <li key={index}>{benefit.trim()}</li>
     ))}
   </ul>
+           {/* Buy Now / Added to Cart */}
           <button
             style={{
               marginTop: "10px",
               padding: "10px 15px",
-              backgroundColor: "orange",
+              backgroundColor: isAdded ? "gray" : "orange",
               color: "white",
               border: "none",
               borderRadius: "5px",
               cursor: "pointer",
+              fontWeight: "bold",
+              transition: "background 0.3s",
             }}
-            onClick={(e) => {
-              e.stopPropagation();
-              onAddToCart({ name, price, image });
-            }}
+            onClick={handleAdd}
+            disabled={isAdded}
           >
-            Buy Now
+           {isAdded ? "🛒 Added to Cart" : " Buy Now"}
           </button>
         </div>
       </div>

@@ -9,7 +9,7 @@ function FeaturedProduct({ products }) {
   
   const pickRandomProducts = () => {
     const shuffled = [...products].sort(() => 0.5 - Math.random());
-    return shuffled.slice(0, 3);
+    return shuffled.slice(0, 6);
   };
 
   // Initial pick

@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import ProductCard from "./ProductCard";
+// import "./PromoSalesPage.css";
 
 function PromoSalesPage({ products, onAddToCart }) {
   const [promoProducts, setPromoProducts] = useState([]);

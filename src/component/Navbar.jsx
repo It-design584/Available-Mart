@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
-const Navbar = () => {
+const Navbar = ({ cartCount }) => {
+
   const [hoveredLink, setHoveredLink] = useState(null);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
@@ -18,44 +19,95 @@ const Navbar = () => {
   const navItems = [
     { to: "/", label: "Home" },
     { to: "/shop", label: "Shop" },
-    { to: "/cart", label: "Cart" },
+   { to: "/cart", label: "Cart", icon: "🛒"  },
     { to: "/contact", label: "Contact" },
   ];
 
   return (
     <nav className="navbar">
-      <div className="logo-section">
-        <div className="logo-icon">🛒</div>
-        <h2 className="logo-text">Available Mart</h2>
-      </div>
+      <Link to="/" className="logo-section" style={{ textDecoration: "none" }}>
+  <div className="logo-icon">🛒</div>
+  <h2 className="logo-text">Available Mart</h2>
+</Link>
 
-      {isMobile && (
-        <button
-          className="hamburger"
-          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-        >
-          {isMobileMenuOpen ? "✕" : "☰"}
-        </button>
-      )}
+
+     {isMobile && (
+  <button
+    className="hamburger"
+    onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+    style={{ position: "relative" }}
+  >
+    {isMobileMenuOpen ? "✕" : "☰"}
+
+    {/* 🔢 Show item count if > 0 */}
+    {cartCount > 0 && !isMobileMenuOpen && (
+      <span
+        style={{
+          position: "absolute",
+          top: "-6px",
+          right: "-8px",
+          background: "red",
+          color: "white",
+          borderRadius: "50%",
+          padding: "2px 2px",
+          fontSize: cartCount > 9 ? "9px" : "10px",
+      fontWeight: "bold",
+      lineHeight: "1",
+      minWidth: "18px",
+      textAlign: "center",
+    }}
+  >
+    {cartCount > 9 ? "10+" : cartCount}
+  </span>
+    )}
+  </button>
+)}
+
 
       {(!isMobile || isMobileMenuOpen) && (
-        <ul className={`nav-links ${isMobile ? "mobile" : ""}`}>
-          {navItems.map((item) => (
-            <li key={item.to}>
-              <Link
-                to={item.to}
-                className={`nav-link ${
-                  hoveredLink === item.to ? "hovered" : ""
-                }`}
-                onMouseEnter={() => setHoveredLink(item.to)}
-                onMouseLeave={() => setHoveredLink(null)}
-                onClick={() => isMobile && setIsMobileMenuOpen(false)}
+    <ul className={`nav-links ${isMobile ? "mobile" : ""}`}>
+  {navItems.map((item) => (
+    <li key={item.to} style={{ position: "relative" }}>
+      <Link
+        to={item.to}
+        className={`nav-link ${hoveredLink === item.to ? "hovered" : ""}`}
+        onMouseEnter={() => setHoveredLink(item.to)}
+        onMouseLeave={() => setHoveredLink(null)}
+        onClick={() => isMobile && setIsMobileMenuOpen(false)}
+        style={{ display: "flex", alignItems: "center", gap: "6px" }}
+      >
+        {item.label}
+        {item.icon && (
+          <span style={{ position: "relative", display: "inline-block" }}>
+            {item.icon}
+            {item.to === "/cart" && cartCount > 0 && (
+              <span
+                style={{
+                  position: "absolute",
+                  top: "-6px",
+                  right: "-10px",
+                  background: "red",
+                  color: "white",
+                  borderRadius: "50%",
+                  padding: "2px 2px",
+                  fontSize: isMobile ? "10px" : "12px",
+                  fontWeight: "bold",
+                  lineHeight: "1",
+                  minWidth: "10px",
+                  textAlign: "center",
+                }}
               >
-                {item.label}
-              </Link>
-            </li>
-          ))}
-        </ul>
+                 {cartCount > 9 ? "10+" : cartCount}
+               </span>
+            )}
+          </span>
+        )}
+      </Link>
+    </li>
+  ))}
+</ul>
+
+
       )}
 
       {/* {(!isMobile || !isMobileMenuOpen) && (

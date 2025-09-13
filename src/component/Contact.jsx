@@ -4,7 +4,8 @@ import { useState } from "react"
 
 function Contact() {
   const [formData, setFormData] = useState({ name: "", email: "", message: "" })
-  const [successMessage, setSuccessMessage] = useState("")
+  // const [successMessage, setSuccessMessage] = useState("")
+  const [buttonText, setButtonText] = useState("Send Message") // ✅ new state
   const [errors, setErrors] = useState({})
 
   const handleChange = (e) => {
@@ -32,8 +33,10 @@ function Contact() {
       return
     }
 
-    setSuccessMessage("Your message has been sent successfully!")
-    setTimeout(() => setSuccessMessage(""), 3000)
+       // ✅ Button feedback instead of popup
+    setButtonText("Message Sent Successfully")
+    setTimeout(() => setButtonText("Send Message"), 2500)
+   
     setFormData({ name: "", email: "", message: "" })
     setErrors({})
   }
@@ -48,7 +51,7 @@ function Contact() {
       }}
     >
       {/* Success message */}
-      {successMessage && (
+      {/* {successMessage && (
         <div
           style={{
             backgroundColor: "#28a745",
@@ -68,7 +71,7 @@ function Contact() {
         >
           {successMessage}
         </div>
-      )}
+      )} */}
 
       <div style={{ maxWidth: "800px", margin: "0 auto" }}>
         <div style={{ textAlign: "center", marginBottom: "50px" }}>
@@ -209,7 +212,7 @@ function Contact() {
               style={{
                 width: "100%",
                 padding: "15px 30px",
-                backgroundColor: "orange",
+               backgroundColor: buttonText === "Message Sent Successfully" ? "grey" : "orange", // ✅ change color
                 color: "white",
                 border: "none",
                 borderRadius: "10px",
@@ -228,7 +231,7 @@ function Contact() {
                 e.target.style.boxShadow = "0 4px 15px rgba(255, 165, 0, 0.3)"
               }}
             >
-              Send Message
+             {buttonText} {/* ✅ Dynamic text */}
             </button>
           </form>
         </div>
