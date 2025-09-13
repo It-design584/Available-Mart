@@ -10,9 +10,12 @@ function ProductCard({ name, price, image, benefits, onAddToCart }) {
     onAddToCart({ name, price, image });
     setIsAdded(true);
 
-    // Reset after 2.5s
-    setTimeout(() => setIsAdded(false), 2500);
-  };
+   // ✅ Flip back automatically after 2.5s
+  setTimeout(() => {
+    setIsAdded(false);   // Reset button
+    setFlipped(false);   // Flip card back to front
+  }, 2500);
+};
 
   return (
    <div
@@ -113,7 +116,7 @@ function ProductCard({ name, price, image, benefits, onAddToCart }) {
             style={{
               marginTop: "10px",
               padding: "10px 15px",
-              backgroundColor: isAdded ? "gray" : "orange",
+              backgroundColor: isAdded ? "green" : "orange",
               color: "white",
               border: "none",
               borderRadius: "5px",
