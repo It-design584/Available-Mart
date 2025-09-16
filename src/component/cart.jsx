@@ -227,17 +227,7 @@ function Cart({ items, onRemoveItem, onClearCart, onUpdateQuantity }) {
         )}
       </div>
 
-      {/* ✅ Footer fixed at bottom */}
-      <footer
-        style={{
-          background: "#333",
-          color: "#fff",
-          textAlign: "center",
-          padding: "20px",
-        }}
-      >
-        © 2025 Available Mart. All rights reserved.
-      </footer>
+    
     </div>
   );
 }
