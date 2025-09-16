@@ -31,8 +31,15 @@ function FeaturedProduct({ products }) {
 
   return (
     <div style={{ padding: "20px", backgroundColor: "#fff8e1", textAlign: "center" }}>
-      <h2 style={{ color: "#ff6f00", marginBottom: "15px" }}>Our Products</h2>
-      <div style={{ display: "flex", gap: "20px", justifyContent: "center", flexWrap: "wrap" }}>
+      <h2 style={{ color: "#ff6f00", marginBottom: "15px" }}>Our Products here</h2>
+
+      <div  style={{
+    display: "grid",
+    gridTemplateColumns: "repeat(auto-fit, minmax(160px, 1fr))",
+    gap: "15px",
+    justifyContent: "center",
+  }}>
+
       {featured.map((item, idx) => (
         <div
           key={idx}
@@ -41,7 +48,8 @@ function FeaturedProduct({ products }) {
             border: "1px solid #ddd",
             borderRadius: "8px",
             padding: "10px",
-            width: "250px",
+            width: "100%",
+            maxWidth: "250px",
             textAlign: "center",
             boxShadow: "0 4px 6px rgba(0,0,0,0.1)",
             transition: "transform 0.3s",

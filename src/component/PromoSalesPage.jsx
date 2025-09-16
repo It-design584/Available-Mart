@@ -17,7 +17,7 @@ function PromoSalesPage({ products, onAddToCart }) {
   return (
     <div style={{ padding: "20px" }}>
       <h2 style={{ textAlign: "center", color: "orange", marginBottom: "20px" }}>
-        🔥 Promo Sales
+        🔥 Promo Sales hi
       </h2>
       <div
         style={{

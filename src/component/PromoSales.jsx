@@ -40,7 +40,7 @@ function PromoSalesPage({ products }) {
 
   return (
     <div style={{ padding: "20px", backgroundColor: "#fff8e1", textAlign: "center" }}>
-      <h2 style={{ textAlign: "center", color: "#ff6f00", marginBottom: "10px", background:"red" }}>
+      <h2 style={{ textAlign: "center", color: "white", marginBottom: "10px", background:"red" }}>
         🔥 Promo Sales
       </h2>
       <p style={{ textAlign: "center", fontSize: "14px", marginBottom: "20px" }}>
@@ -68,7 +68,14 @@ function PromoSalesPage({ products }) {
       </div>
 
       {/* Product cards (static like FeaturedProduct) */}
-      <div style={{ display: "flex", gap: "20px", justifyContent: "center", flexWrap: "wrap" }}>
+   
+      <div  style={{
+    display: "grid",
+    gridTemplateColumns: "repeat(auto-fit, minmax(160px, 1fr))",
+    gap: "15px",
+    justifyContent: "center",
+  }}>
+
         {promoProducts.map((item, idx) => (
           <div
             key={idx}
@@ -76,7 +83,8 @@ function PromoSalesPage({ products }) {
               border: "1px solid #ddd",
               borderRadius: "8px",
               padding: "10px",
-              width: "250px",
+             width: "100%",   
+  maxWidth: "250px",
               textAlign: "center",
               boxShadow: "0 4px 6px rgba(0,0,0,0.1)",
               transition: "transform 0.3s",

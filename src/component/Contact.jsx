@@ -128,29 +128,34 @@ function Contact() {
               }}
             >
               <div>
-                <input
-                  type="text"
-                  name="name"
-                  placeholder="Your Name"
-                  value={formData.name}
-                  onChange={handleChange}
-                  required
-                  style={{
-                    width: "100%",
-                    boxSizing: "border-box",
-                    padding: "15px 20px",
-                    border: errors.name ? "2px solid #e74c3c" : "2px solid #ecf0f1",
-                    borderRadius: "10px",
-                    fontSize: "16px",
-                    outline: "none",
-                    transition: "border-color 0.3s ease",
-                    fontFamily: "inherit",
-                  }}
-                  onFocus={(e) => (e.target.style.borderColor = "#3498db")}
-                  onBlur={(e) => (e.target.style.borderColor = errors.name ? "#e74c3c" : "#ecf0f1")}
-                />
-                {errors.name && <p style={{ color: "#e74c3c", fontSize: "14px", marginTop: "5px" }}>{errors.name}</p>}
-              </div>
+  <input
+    type="text" // or email, textarea
+    name="name"
+    placeholder="Your Name"
+    value={formData.name}
+    onChange={handleChange}
+    style={{
+      width: "100%",
+      boxSizing:"border-box",
+      padding: "15px 20px",
+      border: errors.name ? "2px solid #e74c3c" : "2px solid #ecf0f1", // red border if error
+      borderRadius: "10px",
+      fontSize: "16px",
+      outline: "none",
+      transition: "border-color 0.3s ease",
+    }}
+    onFocus={(e) => (e.target.style.borderColor = "#3498db")}
+    onBlur={(e) =>
+      (e.target.style.borderColor = errors.name ? "#e74c3c" : "#ecf0f1")
+    }
+  />
+  {errors.name && (
+    <p style={{ color: "#e74c3c", fontSize: "14px", marginTop: "5px" }}>
+      {errors.name} {/* Error message under field */}
+    </p>
+  )}
+</div>
+
 
               <div>
                 <input
@@ -178,41 +183,44 @@ function Contact() {
               </div>
             </div>
 
+            
             <div style={{ marginBottom: "30px" }}>
-              <textarea
-                name="message"
-                placeholder="Your Message"
-                value={formData.message}
-                onChange={handleChange}
-                required
-                rows="6"
-                style={{
-                  width: "100%",
-                  boxSizing: "border-box",
-                  padding: "15px 20px",
-                  border: errors.message ? "2px solid #e74c3c" : "2px solid #ecf0f1",
-                  borderRadius: "10px",
-                  fontSize: "16px",
-                  outline: "none",
-                  transition: "border-color 0.3s ease",
-                  fontFamily: "inherit",
-                  resize: "vertical",
-                  minHeight: "120px",
-                }}
-                onFocus={(e) => (e.target.style.borderColor = "#3498db")}
-                onBlur={(e) => (e.target.style.borderColor = errors.message ? "#e74c3c" : "#ecf0f1")}
-              />
-              {errors.message && (
-                <p style={{ color: "#e74c3c", fontSize: "14px", marginTop: "5px" }}>{errors.message}</p>
-              )}
-            </div>
+  <textarea
+    name="message"
+    placeholder="Your Message"
+    value={formData.message}
+    onChange={handleChange}
+    rows="6"
+    style={{
+      width: "100%",
+      boxSizing:"border-box",
+      padding: "15px 20px",
+      border: errors.message ? "2px solid #e74c3c" : "2px solid #ecf0f1", 
+      borderRadius: "10px",
+      fontSize: "16px",
+      outline: "none",
+      transition: "border-color 0.3s ease",
+      fontFamily: "inherit",
+      resize: "vertical",
+      minHeight: "120px",
+    }}
+    onFocus={(e) => (e.target.style.borderColor = "#3498db")}
+    onBlur={(e) => (e.target.style.borderColor = errors.message ? "#e74c3c" : "#ecf0f1")}
+  />
+  {errors.message && (
+    <p style={{ color: "#e74c3c", fontSize: "14px", marginTop: "5px" }}>
+      {errors.message} {/* Error message under field */}
+    </p>
+  )}
+</div>
+
 
             <button
               type="submit"
               style={{
                 width: "100%",
                 padding: "15px 30px",
-               backgroundColor: buttonText === "Message Sent Successfully" ? "grey" : "orange", // ✅ change color
+               backgroundColor: buttonText === "Message Sent Successfully" ? "green" : "orange", // ✅ change color
                 color: "white",
                 border: "none",
                 borderRadius: "10px",

@@ -12,8 +12,8 @@ function ProductCard({ name, price, image, benefits, onAddToCart }) {
 
    // ✅ Flip back automatically after 2.5s
   setTimeout(() => {
-    setIsAdded(false);   // Reset button
-    setFlipped(false);   // Flip card back to front
+    setIsAdded(false);  
+    setFlipped(false);   
   }, 2500);
 };
 
@@ -41,7 +41,7 @@ function ProductCard({ name, price, image, benefits, onAddToCart }) {
           transform: flipped ? "rotateY(180deg)" : "rotateY(0deg)",
         }}
       >
-        {/* Front Side */}
+        {/* Front Side and image*/}
         <div
           style={{
             position: "absolute",
@@ -53,6 +53,7 @@ function ProductCard({ name, price, image, benefits, onAddToCart }) {
             overflow: "hidden",
             textAlign: "center",
             boxShadow: "0 4px 8px rgba(0,0,0,0.2)",
+            
           }}
         >
           <img
