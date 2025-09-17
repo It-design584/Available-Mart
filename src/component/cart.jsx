@@ -45,7 +45,7 @@ function Cart({ items, onRemoveItem, onClearCart, onUpdateQuantity }) {
   return (
     <div
       style={{
-        minHeight: "100vh", // make full screen height
+        minHeight: "100vh", 
         display: "flex",
         flexDirection: "column",
       }}
