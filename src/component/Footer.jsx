@@ -93,7 +93,7 @@ const Footer = () => {
 
             {/* Instagram */}
             <a
-              href="https://www.instagram.com/JosephItoro"
+              href="https://www.instagram.com/Joseph itoro"
               style={{ color: "white", textDecoration: "none" }}
               onMouseEnter={(e) => (e.target.style.color = "#fed7aa")}
               onMouseLeave={(e) => (e.target.style.color = "white")}
@@ -106,7 +106,7 @@ const Footer = () => {
 
             {/* Twitter */}
             <a
-              href="https://www.twitter.com/joseph itoro"
+              href="https://www.twitter.com/@Chemist14217"
               style={{ color: "white", textDecoration: "none" }}
               onMouseEnter={(e) => (e.target.style.color = "#fed7aa")}
               onMouseLeave={(e) => (e.target.style.color = "white")}
