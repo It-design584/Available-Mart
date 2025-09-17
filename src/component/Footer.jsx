@@ -93,7 +93,7 @@ const Footer = () => {
 
             {/* Instagram */}
             <a
-              href="https://www.instagram.com/Joseph itoro"
+              href="https://www.instagram.com/chemistitonium"
               style={{ color: "white", textDecoration: "none" }}
               onMouseEnter={(e) => (e.target.style.color = "#fed7aa")}
               onMouseLeave={(e) => (e.target.style.color = "white")}
