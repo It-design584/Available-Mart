@@ -21,7 +21,7 @@ function ProductCard({ name, price, image, benefits, onAddToCart }) {
    <div
   style={{
     perspective: "1000px",
-    width: "100%",        
+   flex: "1 1 220px",        
     maxWidth: "220px",    
     height: "300px",
     cursor: "pointer",

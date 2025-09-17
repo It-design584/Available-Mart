@@ -58,6 +58,7 @@
   }
 }
 
+
 /* Apply animation to featured product card */
 .featured-product-card {
   animation: fadeSlideUp 0.6s ease forwards;

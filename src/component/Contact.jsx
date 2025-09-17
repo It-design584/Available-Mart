@@ -58,7 +58,7 @@ function Contact() {
             color: "white",
             padding: "15px 25px",
             textAlign: "center",
-            position: "fixed",
+               position: "fixed",
             top: "20px",
             left: "50%",
             transform: "translateX(-50%)",

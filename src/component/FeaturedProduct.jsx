@@ -31,12 +31,12 @@ function FeaturedProduct({ products }) {
 
   return (
     <div style={{ padding: "20px", backgroundColor: "#fff8e1", textAlign: "center" }}>
-      <h2 style={{ color: "#ff6f00", marginBottom: "15px" }}>Our Products here</h2>
+      <h2 style={{ color: "#ff6f00", marginBottom: "15px" }}>Our Products </h2>
 
       <div  style={{
     display: "grid",
     gridTemplateColumns: "repeat(auto-fit, minmax(160px, 1fr))",
-    gap: "15px",
+    gap: "30px",
     justifyContent: "center",
   }}>
 
@@ -62,11 +62,12 @@ function FeaturedProduct({ products }) {
             alt={item.name}
             style={{
               width: "100%",
-              height: "150px",
-              objectFit: "cover",
+              height: "180px",
+              objectFit: "contain",
               borderRadius: "5px",
             }}
           />
+          
           <h4>{item.name}</h4>
           <p>₦{item.price}</p>
 

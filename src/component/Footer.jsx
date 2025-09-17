@@ -4,7 +4,7 @@ const Footer = () => {
   const footerStyle = {
     backgroundColor: "orange",
     color: "white",
-    marginTop: "auto",       // push foo
+    marginTop: "auto",       
     padding: "48px 24px 24px",
     width: "100%",
   };
@@ -62,6 +62,22 @@ const Footer = () => {
 
           {/* Social Links */}
           <div style={socialStyle}>
+            {/* WhatsApp */}
+  <a
+    href="https://wa.me/2348168019962" 
+    style={{ color: "white", textDecoration: "none" }}
+    onMouseEnter={(e) => (e.target.style.color = "#fed7aa")}
+              onMouseLeave={(e) => (e.target.style.color = "white")}
+    aria-label="WhatsApp"
+  >
+    <svg
+      style={{ width: "24px", height: "24px" }}
+      fill="currentColor"
+      viewBox="0 0 24 24"
+    >
+      <path d="M12.04 2.004c-5.52 0-10 4.477-10 9.997 0 1.763.467 3.478 1.357 4.997l-1.432 5.23 5.36-1.405c1.452.796 3.08 1.177 4.715 1.177h.002c5.52 0 9.998-4.478 9.998-9.999 0-2.67-1.04-5.182-2.93-7.07a9.935 9.935 0 00-7.07-2.927zm0 18.276h-.002a8.27 8.27 0 01-4.194-1.148l-.3-.178-3.178.833.85-3.106-.196-.32a8.27 8.27 0 01-1.243-4.402c0-4.565 3.708-8.273 8.273-8.273 2.21 0 4.29.863 5.85 2.423a8.22 8.22 0 012.425 5.85c0 4.565-3.708 8.271-8.285 8.271zm4.59-6.189c-.25-.124-1.48-.73-1.71-.812-.23-.083-.398-.124-.565.124-.166.25-.648.812-.795.979-.146.167-.291.188-.541.063-.25-.125-1.055-.389-2.01-1.239-.74-.66-1.24-1.48-1.385-1.73-.146-.25-.016-.386.11-.51.113-.113.25-.292.375-.438.125-.146.167-.25.25-.416.083-.167.042-.312-.021-.438-.062-.124-.565-1.355-.774-1.855-.203-.49-.41-.42-.565-.428-.146-.01-.312-.012-.478-.012-.167 0-.438.063-.667.312-.229.25-.875.855-.875 2.084 0 1.229.896 2.416 1.02 2.584.125.166 1.76 2.687 4.268 3.77.596.257 1.062.411 1.424.527.598.19 1.141.163 1.573.099.48-.072 1.48-.604 1.688-1.188.208-.584.208-1.084.146-1.188-.062-.104-.229-.167-.48-.292z" />
+    </svg>
+  </a>
             {/* Facebook */}
             <a
               href="https://www.facebook.com/chemistitonium"
@@ -90,7 +106,7 @@ const Footer = () => {
 
             {/* Twitter */}
             <a
-              href="https://www.twitter.com/chemistitonium"
+              href="https://www.twitter.com/joseph itoro"
               style={{ color: "white", textDecoration: "none" }}
               onMouseEnter={(e) => (e.target.style.color = "#fed7aa")}
               onMouseLeave={(e) => (e.target.style.color = "white")}

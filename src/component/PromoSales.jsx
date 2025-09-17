@@ -72,8 +72,9 @@ function PromoSalesPage({ products }) {
       <div  style={{
     display: "grid",
     gridTemplateColumns: "repeat(auto-fit, minmax(160px, 1fr))",
-    gap: "15px",
+    gap: "30px",
     justifyContent: "center",
+    
   }}>
 
         {promoProducts.map((item, idx) => (
@@ -84,7 +85,7 @@ function PromoSalesPage({ products }) {
               borderRadius: "8px",
               padding: "10px",
              width: "100%",   
-  maxWidth: "250px",
+            maxWidth: "250px",
               textAlign: "center",
               boxShadow: "0 4px 6px rgba(0,0,0,0.1)",
               transition: "transform 0.3s",
@@ -92,16 +93,18 @@ function PromoSalesPage({ products }) {
             onMouseEnter={(e) => (e.currentTarget.style.transform = "scale(1.05)")}
             onMouseLeave={(e) => (e.currentTarget.style.transform = "scale(1)")}
           >
-            <img
-              src={item.image}
-              alt={item.name}
-              style={{
-                width: "100%",
-                height: "150px",
-                objectFit: "cover",
-                borderRadius: "5px",
-              }}
-            />
+           <img
+             src={item.image}
+             alt={item.name}
+   style={{
+    width: "100%",
+    height: "180px",
+    objectFit: "contain",
+    borderRadius: "5px",
+    boxSizing: "border-box",
+  }}
+/>
+
             <h4>{item.name}</h4>
             <p>₦{item.price}</p>
 

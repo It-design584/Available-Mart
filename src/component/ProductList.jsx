@@ -37,7 +37,7 @@ const ProductList = ({ products, onAddToCart }) => {
       <div
         style={{
           display: "flex",
-          gap: "20px",
+          gap: "30px",
           flexWrap: "wrap",
           justifyContent: "center",
         }}

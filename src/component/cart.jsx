@@ -174,7 +174,7 @@ function Cart({ items, onRemoveItem, onClearCart, onUpdateQuantity }) {
               placeholder="Enter your delivery address"
               value={address}
               onChange={(e) => setAddress(e.target.value)}
-              style={{ width: "100%", padding: "10px", borderRadius: "5px" }}
+              style={{ width: "99%", padding: "10px", borderRadius: "5px" }}
             />
 
             <button
